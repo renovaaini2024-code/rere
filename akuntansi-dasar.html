@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Akuntansi Dasar – Belajar Akuntansi Jadi Mudah</title>
+<style>
+:root{
+  --navy:#0f2a4a; --navy2:#163a63; --blue:#2f6fed; --sky:#eaf2ff;
+  --green:#1f9d6b; --ink:#1b2430; --paper:#ffffff; --line:#dfe6f0;
+  box-sizing:border-box; padding-top:env(safe-area-inset-top,0px); padding-bottom:env(safe-area-inset-bottom,0px);
+}
+*{box-sizing:border-box}
+body{margin:0;font-family:"Segoe UI",system-ui,sans-serif;background:var(--sky);color:var(--ink);}
+header{background:var(--navy);color:#fff;padding:14px 20px;position:sticky;top:0;z-index:10;
+  padding-top:calc(14px + env(safe-area-inset-top,0px));}
+.brand{font-size:1.15rem;font-weight:700}
+.brand span{color:#9fc4ff}
+nav{display:flex;gap:6px;overflow-x:auto;margin-top:10px;padding-bottom:2px}
+nav button{background:transparent;border:1px solid #3a5a86;color:#cfe0ff;padding:7px 12px;border-radius:8px;
+  cursor:pointer;font-size:.85rem;white-space:nowrap;flex:0 0 auto}
+nav button.active{background:var(--blue);border-color:var(--blue);color:#fff}
+main{max-width:840px;margin:0 auto;padding:20px 16px 60px}
+.view{display:none}
+.view.active{display:block}
+.hero{background:linear-gradient(135deg,var(--navy),var(--navy2));color:#fff;border-radius:14px;padding:28px 22px;margin-bottom:18px}
+.hero h1{margin:0 0 10px;font-size:1.6rem}
+.hero p{margin:0 0 16px;color:#d7e4fb;line-height:1.55}
+.btnrow{display:flex;gap:10px;flex-wrap:wrap}
+.btn{background:var(--green);color:#fff;border:none;padding:10px 16px;border-radius:8px;cursor:pointer;font-size:.9rem;font-weight:600}
+.btn.alt{background:#fff;color:var(--navy)}
+.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px;margin:16px 0}
+.card{background:var(--paper);border:1px solid var(--line);border-radius:10px;padding:14px;text-align:center}
+.card b{display:block;color:var(--navy);font-size:1rem}
+.card small{color:#5a6b85}
+h2.sect{color:var(--navy);border-bottom:2px solid var(--line);padding-bottom:8px;margin-top:26px}
+.acc{border:1px solid var(--line);border-radius:10px;margin-bottom:10px;overflow:hidden;background:#fff}
+.acc>summary{cursor:pointer;padding:12px 14px;font-weight:600;color:var(--navy);list-style:none}
+.acc>summary::-webkit-details-marker{display:none}
+.acc>summary::before{content:"▸ ";color:var(--blue)}
+.acc[open]>summary::before{content:"▾ "}
+.acc-body{padding:0 14px 14px;line-height:1.6;font-size:.93rem}
+.acc-body ul{padding-left:20px}
+table{width:100%;border-collapse:collapse;margin:10px 0;font-size:.85rem}
+th,td{border:1px solid var(--line);padding:6px 8px;text-align:left}
+th{background:var(--sky);color:var(--navy)}
+.qcard{background:#fff;border:1px solid var(--line);border-radius:10px;padding:16px;margin-top:12px}
+.qcard p.q{font-weight:600;margin-top:0}
+.opts label{display:block;padding:8px 10px;border:1px solid var(--line);border-radius:8px;margin-bottom:6px;cursor:pointer}
+.opts label:hover{background:var(--sky)}
+.opts input{margin-right:8px}
+.fb{margin-top:10px;padding:10px;border-radius:8px;font-size:.9rem}
+.fb.ok{background:#e5f7ee;color:#146c43}
+.fb.no{background:#fdeceb;color:#a5271b}
+.progress{font-size:.8rem;color:#5a6b85;margin-bottom:6px}
+.searchbox{width:100%;padding:10px;border:1px solid var(--line);border-radius:8px;margin-bottom:14px;font-size:.9rem}
+.gloss{background:#fff;border:1px solid var(--line);border-radius:8px;padding:10px 14px;margin-bottom:8px}
+.gloss b{color:var(--navy)}
+.result{background:#fff;border:1px solid var(--line);border-radius:10px;padding:18px;text-align:center;margin-top:14px}
+.result .score{font-size:2.2rem;font-weight:800;color:var(--navy)}
+footer{text-align:center;color:#7688a4;font-size:.8rem;padding:20px}
+@media (prefers-color-scheme:dark){
+  body{background:#0b1626;color:#e7edf7}
+  .card,.acc,.qcard,.gloss,.result{background:#132238;border-color:#254468}
+  th{background:#1b3252}
+  th,td{border-color:#254468}
+  .searchbox{background:#132238;border-color:#254468;color:#e7edf7}
+}
+</style>
+</head>
+<body>
+<header>
+  <div class="brand">AKUNTANSI DASAR <span>– Belajar Akuntansi Jadi Mudah</span></div>
+  <nav id="nav"></nav>
+</header>
+<main>
+
+<section class="view active" id="v-beranda">
+  <div class="hero">
+    <h1>Yuk, Kenalan dengan Akuntansi!</h1>
+    <p>Akuntansi tidak hanya tentang menghitung angka. Akuntansi membantu kita memahami kondisi keuangan suatu usaha melalui proses pencatatan, pengelompokan, dan penyajian informasi keuangan.</p>
+    <div class="btnrow">
+      <button class="btn" onclick="go('materi')">Mulai Belajar</button>
+      <button class="btn alt" onclick="go('kuis')">Kerjakan Kuis</button>
+    </div>
+  </div>
+  <div class="cards">
+    <div class="card"><b>Kelas X</b><small>Program AKL</small></div>
+    <div class="card"><b>6 Bab Materi</b><small>Akuntansi Dasar</small></div>
+    <div class="card"><b>Latihan &amp; Kuis</b><small>Nilai otomatis</small></div>
+    <div class="card"><b id="progresslabel">0%</b><small>Progres belajar</small></div>
+  </div>
+  <h2 class="sect">Perangkat Pembelajaran</h2>
+  <div class="acc-body" style="background:#fff;border:1px solid var(--line);border-radius:10px;padding:14px">
+    <p><b>Mata Pelajaran:</b> Akuntansi Dasar &nbsp;|&nbsp; <b>Kelas/Fase:</b> X / Fase E &nbsp;|&nbsp; <b>Alokasi:</b> 4 JP</p>
+    <p><b>Capaian Pembelajaran:</b> Siswa memahami konsep dasar akuntansi, persamaan dasar akuntansi, jenis akun, mekanisme debit dan kredit, serta mampu menganalisis dan mencatat transaksi sederhana.</p>
+    <p><b>Pemahaman Bermakna:</b> Setiap kegiatan usaha menghasilkan transaksi. Agar kondisi keuangan usaha dapat diketahui, transaksi harus dicatat dan dikelompokkan secara sistematis.</p>
+    <p><b>Pertanyaan Pemantik:</b> Jika kamu memiliki usaha kecil, bagaimana kamu tahu usahamu untung atau rugi? Mengapa uang masuk dan keluar perlu dicatat?</p>
+  </div>
+</section>
+
+<section class="view" id="v-materi">
+  <h2 class="sect">Materi Pembelajaran</h2>
+  <details class="acc" open><summary>Bab 1 – Mengenal Akuntansi</summary>
+    <div class="acc-body">Akuntansi adalah proses mengidentifikasi, mencatat, menggolongkan, meringkas, dan menyajikan informasi keuangan suatu usaha. Tujuannya agar pemilik, kreditor, dan pihak lain dapat mengetahui kondisi keuangan usaha untuk mengambil keputusan.
+    <p><i>Contoh:</i> Warung makan Bu Ani mencatat pembelian bahan makanan, pembayaran listrik, penerimaan penjualan, dan pembayaran utang agar tahu untung atau rugi.</p></div>
+  </details>
+  <details class="acc"><summary>Bab 2 – Konsep Dasar Akuntansi</summary>
+    <div class="acc-body"><ul>
+      <li><b>Transaksi</b>: kejadian yang mengubah posisi keuangan usaha (mis. membeli, menjual).</li>
+      <li><b>Aset</b>: sumber daya yang dimiliki dan bermanfaat ekonomi (kas, piutang, peralatan).</li>
+      <li><b>Liabilitas</b>: kewajiban kepada pihak lain (utang usaha, utang bank).</li>
+      <li><b>Ekuitas</b>: hak pemilik atas aset setelah dikurangi liabilitas (modal).</li>
+      <li><b>Pendapatan</b>: kenaikan ekonomi dari kegiatan usaha (pendapatan jasa).</li>
+      <li><b>Beban</b>: pengorbanan ekonomi untuk memperoleh pendapatan (beban listrik).</li>
+      <li><b>Prive</b>: pengambilan uang/barang perusahaan oleh pemilik untuk kepentingan pribadi.</li>
+    </ul></div>
+  </details>
+  <details class="acc"><summary>Bab 3 – Persamaan Dasar Akuntansi</summary>
+    <div class="acc-body">
+    <p style="text-align:center;font-size:1.2rem;font-weight:800;color:var(--navy)">ASET = LIABILITAS + EKUITAS</p>
+    <p>Contoh: modal awal Rp10.000.000 → Aset Rp10.000.000, Liabilitas Rp0, Ekuitas Rp10.000.000.</p>
+    <table><tr><th>No.</th><th>Transaksi</th><th>Aset</th><th>Liabilitas</th><th>Ekuitas</th></tr>
+    <tr><td>1</td><td>Setor modal Rp10.000.000</td><td>+10.000.000</td><td>0</td><td>+10.000.000</td></tr>
+    <tr><td>2</td><td>Beli perlengkapan tunai Rp1.000.000</td><td>+1.000.000 / -1.000.000</td><td>0</td><td>0</td></tr>
+    <tr><td>3</td><td>Beli peralatan kredit Rp3.000.000</td><td>+3.000.000</td><td>+3.000.000</td><td>0</td></tr>
+    <tr><td>4</td><td>Terima pendapatan jasa Rp2.000.000</td><td>+2.000.000</td><td>0</td><td>+2.000.000</td></tr>
+    <tr><td>5</td><td>Bayar beban listrik Rp500.000</td><td>-500.000</td><td>0</td><td>-500.000</td></tr>
+    </table></div>
+  </details>
+  <details class="acc"><summary>Bab 4 – Jenis-Jenis Akun</summary>
+    <div class="acc-body"><ul>
+      <li><b>Aset</b>: Kas, Piutang, Perlengkapan, Peralatan, Kendaraan, Gedung</li>
+      <li><b>Liabilitas</b>: Utang usaha, Utang bank</li>
+      <li><b>Ekuitas</b>: Modal</li>
+      <li><b>Pendapatan</b>: Pendapatan jasa, Pendapatan penjualan</li>
+      <li><b>Beban</b>: Beban listrik, Beban sewa, Beban gaji, Beban perlengkapan</li>
+      <li><b>Prive</b>: Pengambilan pribadi oleh pemilik</li>
+    </ul></div>
+  </details>
+  <details class="acc"><summary>Bab 5 – Debit dan Kredit</summary>
+    <div class="acc-body">
+    <table><tr><th>Jenis Akun</th><th>Bertambah</th><th>Berkurang</th></tr>
+    <tr><td>Aset</td><td>Debit</td><td>Kredit</td></tr>
+    <tr><td>Liabilitas</td><td>Kredit</td><td>Debit</td></tr>
+    <tr><td>Ekuitas</td><td>Kredit</td><td>Debit</td></tr>
+    <tr><td>Pendapatan</td><td>Kredit</td><td>Debit</td></tr>
+    <tr><td>Beban</td><td>Debit</td><td>Kredit</td></tr>
+    <tr><td>Prive</td><td>Debit</td><td>Kredit</td></tr></table>
+    <p><b>Cara mengingat:</b> Aset &amp; Beban bertambah di Debit. Liabilitas, Ekuitas, Pendapatan bertambah di Kredit.</p></div>
+  </details>
+  <details class="acc"><summary>Bab 6 – Analisis Transaksi</summary>
+    <div class="acc-body"><p><b>Contoh:</b> Pemilik menyetor tunai Rp10.000.000 sebagai modal.</p>
+    <p>Jawaban: Debit Kas Rp10.000.000, Kredit Modal Rp10.000.000.</p>
+    <p>Coba analisis sendiri di menu <b>Latihan Soal</b> dan <b>Kuis Interaktif</b>.</p></div>
+  </details>
+</section>
+
+<section class="view" id="v-latihan">
+  <h2 class="sect">Latihan Soal</h2>
+  <div id="latihan-area"></div>
+</section>
+
+<section class="view" id="v-kuis">
+  <h2 class="sect">Kuis Interaktif</h2>
+  <div id="kuis-area"></div>
+</section>
+
+<section class="view" id="v-glosarium">
+  <h2 class="sect">Glosarium</h2>
+  <input class="searchbox" id="gsearch" placeholder="Cari istilah...">
+  <div id="gloss-list"></div>
+</section>
+
+</main>
+<footer>Perangkat Pembelajaran Digital Akuntansi Dasar — Kelas X AKL</footer>
+
+<script>
+const tabs=[["beranda","Beranda"],["materi","Materi"],["latihan","Latihan"],["kuis","Kuis"],["glosarium","Glosarium"]];
+const navEl=document.getElementById('nav');
+tabs.forEach(([id,label])=>{
+  const b=document.createElement('button'); b.textContent=label; b.onclick=()=>go(id); b.id='nav-'+id;
+  navEl.appendChild(b);
+});
+let progress={materi:false,latihan:false,kuis:false};
+function go(id){
+  document.querySelectorAll('.view').forEach(v=>v.classList.remove('active'));
+  document.getElementById('v-'+id).classList.add('active');
+  document.querySelectorAll('nav button').forEach(b=>b.classList.remove('active'));
+  document.getElementById('nav-'+id).classList.add('active');
+  if(id==='materi')progress.materi=true;
+  updateProgress();
+  window.scrollTo(0,0);
+}
+function updateProgress(){
+  const n=Object.values(progress).filter(Boolean).length;
+  document.getElementById('progresslabel').textContent=Math.round(n/3*100)+'%';
+}
+go('beranda');
+
+// ---- LATIHAN ----
+const latihanSoal=[
+ {q:"Kas termasuk jenis akun apa?",o:["Aset","Liabilitas","Ekuitas","Beban"],a:0,e:"Kas adalah sumber daya perusahaan, jadi termasuk Aset."},
+ {q:"Utang usaha termasuk jenis akun apa?",o:["Aset","Liabilitas","Pendapatan","Prive"],a:1,e:"Utang usaha adalah kewajiban kepada pihak lain, yaitu Liabilitas."},
+ {q:"Rumus persamaan dasar akuntansi yang benar adalah...",o:["Aset = Liabilitas − Ekuitas","Aset = Liabilitas + Ekuitas","Ekuitas = Aset + Liabilitas","Liabilitas = Aset + Ekuitas"],a:1,e:"Persamaan dasar akuntansi: Aset = Liabilitas + Ekuitas."},
+ {q:"Pemilik menyetor modal tunai Rp5.000.000. Akun yang bertambah adalah...",o:["Kas (debit) & Modal (kredit)","Kas (kredit) & Modal (debit)","Utang (debit) & Kas (kredit)","Modal (debit) & Kas (kredit)"],a:0,e:"Kas bertambah di sisi debit, Modal bertambah di sisi kredit."},
+ {q:"Beban listrik akan bertambah di sisi...",o:["Debit","Kredit","Tidak dicatat","Debit dan kredit sekaligus"],a:0,e:"Beban bertambah di sisi Debit."},
+ {q:"Pendapatan jasa termasuk kelompok akun...",o:["Aset","Liabilitas","Pendapatan","Beban"],a:2,e:"Pendapatan jasa jelas termasuk kelompok Pendapatan."},
+ {q:"Pengambilan uang perusahaan oleh pemilik untuk kepentingan pribadi disebut...",o:["Beban","Prive","Piutang","Modal"],a:1,e:"Ini disebut Prive."},
+ {q:"Membeli peralatan secara kredit akan menambah akun...",o:["Aset dan Liabilitas","Aset dan Ekuitas","Liabilitas dan Ekuitas","Beban dan Pendapatan"],a:0,e:"Peralatan (Aset) bertambah, dan Utang (Liabilitas) juga bertambah."},
+];
+renderQuizLike('latihan-area', latihanSoal, false);
+
+// ---- KUIS ----
+const kuisSoal=[
+ {q:"Akuntansi adalah proses mengidentifikasi, mencatat, menggolongkan, meringkas, dan...",o:["Menyembunyikan informasi","Menyajikan informasi keuangan","Menghapus data","Menaikkan harga"],a:1,e:"Tahap akhir akuntansi adalah menyajikan informasi keuangan."},
+ {q:"Aset dikurangi Liabilitas sama dengan...",o:["Pendapatan","Beban","Ekuitas","Prive"],a:2,e:"Aset − Liabilitas = Ekuitas."},
+ {q:"Piutang termasuk kelompok akun...",o:["Aset","Liabilitas","Ekuitas","Beban"],a:0,e:"Piutang adalah hak tagih, termasuk Aset."},
+ {q:"Modal bertambah di sisi...",o:["Debit","Kredit","Tidak dicatat","Debit dan kredit"],a:1,e:"Modal (Ekuitas) bertambah di sisi Kredit."},
+ {q:"Menerima pendapatan jasa tunai Rp2.000.000 dicatat...",o:["Debit Kas, Kredit Pendapatan","Debit Pendapatan, Kredit Kas","Debit Modal, Kredit Kas","Debit Kas, Kredit Modal"],a:0,e:"Kas (Aset) bertambah di debit, Pendapatan bertambah di kredit."},
+ {q:"Utang bank termasuk kelompok akun...",o:["Aset","Liabilitas","Ekuitas","Pendapatan"],a:1,e:"Utang bank adalah kewajiban, yaitu Liabilitas."},
+ {q:"Beban sewa dibayar tunai akan mengurangi akun...",o:["Kas","Modal","Utang","Pendapatan"],a:0,e:"Kas berkurang karena dibayar tunai; Beban bertambah di debit."},
+ {q:"Perlengkapan termasuk kelompok akun...",o:["Beban","Aset","Liabilitas","Prive"],a:1,e:"Perlengkapan adalah sumber daya perusahaan, yaitu Aset."},
+ {q:"Jika liabilitas Rp3.000.000 dan ekuitas Rp7.000.000, maka aset adalah...",o:["Rp4.000.000","Rp10.000.000","Rp3.000.000","Rp7.000.000"],a:1,e:"Aset = Liabilitas + Ekuitas = 3.000.000 + 7.000.000 = 10.000.000."},
+ {q:"Prive bertambah di sisi...",o:["Debit","Kredit","Tidak dicatat","Debit dan kredit"],a:0,e:"Prive bertambah di sisi Debit."},
+];
+renderQuizLike('kuis-area', kuisSoal, true);
+
+function renderQuizLike(containerId, soal, isTimed){
+  const el=document.getElementById(containerId);
+  let idx=0, correct=0, answered=false, timer=null, timeLeft=20;
+  function render(){
+    answered=false;
+    const s=soal[idx];
+    let html=`<div class="progress">Soal ${idx+1} dari ${soal.length}${isTimed?' — waktu: <span id="tleft">20</span>d':''}</div>`;
+    html+=`<div class="qcard"><p class="q">${s.q}</p><div class="opts">`;
+    s.o.forEach((opt,i)=>{
+      html+=`<label><input type="radio" name="opt" value="${i}"> ${opt}</label>`;
+    });
+    html+=`</div><button class="btn" id="jawabBtn">Jawab</button><div id="fbBox"></div></div>`;
+    el.innerHTML=html;
+    document.getElementById('jawabBtn').onclick=()=>submit(s);
+    if(isTimed){
+      timeLeft=20;
+      clearInterval(timer);
+      timer=setInterval(()=>{
+        timeLeft--;
+        const t=document.getElementById('tleft'); if(t)t.textContent=timeLeft;
+        if(timeLeft<=0){clearInterval(timer); if(!answered) submit(s,true);}
+      },1000);
+    }
+  }
+  function submit(s, timeout){
+    if(answered) return; answered=true;
+    if(isTimed) clearInterval(timer);
+    const picked=document.querySelector('input[name=opt]:checked');
+    const val=picked?parseInt(picked.value):-1;
+    const box=document.getElementById('fbBox');
+    if(val===s.a){ correct++; box.innerHTML=`<div class="fb ok"><b>Benar!</b> ${s.e}</div>`; }
+    else{ box.innerHTML=`<div class="fb no"><b>${timeout?'Waktu habis.':'Belum tepat.'}</b> Jawaban benar: ${s.o[s.a]}. ${s.e}</div>`; }
+    document.getElementById('jawabBtn').outerHTML=`<button class="btn" id="nextBtn">${idx<soal.length-1?'Soal Berikutnya':'Lihat Hasil'}</button>`;
+    document.getElementById('nextBtn').onclick=()=>{
+      idx++;
+      if(idx<soal.length) render(); else finish();
+    };
+  }
+  function finish(){
+    const pct=Math.round(correct/soal.length*100);
+    let msg = pct>=90?"Sangat Baik! Kamu sudah memahami konsep dasar akuntansi.":
+              pct>=80?"Baik! Tinggal memperkuat beberapa konsep.":
+              pct>=70?"Cukup baik. Yuk pelajari kembali materi yang masih belum dikuasai.":
+              "Jangan menyerah. Pelajari kembali materi dan coba lagi.";
+    el.innerHTML=`<div class="result"><div class="score">${pct}</div><p>${correct} dari ${soal.length} jawaban benar</p><p>${msg}</p>
+      <div class="btnrow" style="justify-content:center"><button class="btn" onclick="location.reload()">Ulangi</button>
+      <button class="btn alt" onclick="go('materi')">Pelajari Kembali Materi</button></div></div>`;
+    if(containerId==='latihan-area') progress.latihan=true; else progress.kuis=true;
+    updateProgress();
+  }
+  render();
+}
+
+// ---- GLOSARIUM ----
+const glossary=[
+ ["Akuntansi","Proses mengidentifikasi, mencatat, menggolongkan, meringkas, dan menyajikan informasi keuangan."],
+ ["Aset","Sumber daya yang dimiliki atau dikuasai perusahaan dan memiliki manfaat ekonomi."],
+ ["Liabilitas","Kewajiban perusahaan kepada pihak lain."],
+ ["Ekuitas","Hak pemilik atas aset perusahaan setelah dikurangi liabilitas."],
+ ["Debit","Sisi kiri dalam akun."],
+ ["Kredit","Sisi kanan dalam akun."],
+ ["Pendapatan","Kenaikan manfaat ekonomi dari kegiatan usaha."],
+ ["Beban","Pengorbanan ekonomi untuk memperoleh pendapatan."],
+ ["Prive","Pengambilan uang/barang perusahaan oleh pemilik untuk kepentingan pribadi."],
+ ["Transaksi","Kejadian yang mengubah posisi keuangan suatu usaha."],
+];
+function renderGloss(filter=""){
+  const list=document.getElementById('gloss-list');
+  const f=filter.toLowerCase();
+  list.innerHTML=glossary.filter(g=>g[0].toLowerCase().includes(f)).map(g=>
+    `<div class="gloss"><b>${g[0]}</b><br>${g[1]}</div>`).join('') || '<p>Istilah tidak ditemukan.</p>';
+}
+renderGloss();
+document.getElementById('gsearch').addEventListener('input',e=>renderGloss(e.target.value));
+</script>
+</body>
+</html>
